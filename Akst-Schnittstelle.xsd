@@ -1,0 +1,4292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns="http://www.ag-akst.de/saatxml" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ag-akst.de/saatxml" version="1.0"
+  elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:appinfo>
+      <p>
+        <strong>SaatXML - Bundeseinheitliche Schnittstelle zum Austausch von Saatgutverkehrsdaten für den Anerkennungsprozess.</strong>
+      </p>
+      <p>Version 1.0 (Stand: 23.01.2009)</p>
+    </xs:appinfo>
+    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+      <p>Copyright (c) 2009</p>
+      <p>
+        Die eComradeGroup (
+        <a href="http://www.ecomradegroup.de">www.ecomradegroup.de</a>
+        ) vertreten durch Andreas Hartmann-Schneevoigt. Alle Rechte vorbehalten. Weiterverbreitung und Verwendung in Form des XML Schema oder als
+        Softwarerepräsentation, mit oder ohne Veränderung, sind unter den folgenden Bedingungen zulässig:
+      </p>
+      <ol>
+        <li>Weiterverbreitete XML Schema müssen das obige Copyright, die Liste der Bedingungen und den folgenden Haftungsausschluss im
+          Quelltext enthalten.</li>
+        <li>
+          Weiterverbreitete Softwarerepräsentationen müssen das obige Copyright, die Liste der Bedingungen und den folgenden Haftungsausschluss in der
+          Dokumentation und/oder anderen Materialien, die mit dem Exemplar verbreitet werden, enthalten.
+        </li>
+        <li>
+          Alle Werbematerialien, die Eigenschaften oder die Benutzung erwähnen, müssen die folgende Bemerkung enthalten: „Dieses Produkt enthält Software, die
+          von der eComradeGroup und Beitragsleistenden entwickelt wurde.“
+        </li>
+        <li>
+          Weder der Name der eComradeGroup noch die Namen der Beitragsleistenden dürfen zum Kennzeichnen oder Bewerben von Produkten, die von dieser XML
+          Schema
+          abgeleitet wurden, ohne spezielle vorherige schriftliche Genehmigung verwendet werden.
+        </li>
+      </ol>
+      <p>
+        DIESE SOFTWARE WIRD VOM VERWALTUNGSRAT UND DEN BEITRAGSLEISTENDEN OHNE JEGLICHE SPEZIELLE ODER IMPLIZIERTE GARANTIEN ZUR VERFÜGUNG GESTELLT, DIE UNTER
+        ANDEREM EINSCHLIESSEN: DIE IMPLIZIERTE GARANTIE DER VERWENDBARKEIT DER XML SCHEMA FÜR EINEN BESTIMMTEN ZWECK. AUF KEINEN FALL SIND DIE VERWALTUNGSRÄTE
+        ODER DIE BEITRAGSLEISTENDEN FÜR IRGENDWELCHE DIREKTEN, INDIREKTEN, ZUFÄLLIGEN, SPEZIELLEN, BEISPIELHAFTEN ODER FOLGENDEN SCHÄDEN (UNTER ANDEREM
+        VERSCHAFFEN VON ERSATZGÜTERN ODER -DIENSTLEISTUNGEN; EINSCHRÄNKUNG DER NUTZUNGSFÄHIGKEIT; VERLUST VON NUTZUNGSFÄHIGKEIT; DATEN; PROFIT ODER
+        GESCHÄFTSUNTERBRECHUNG), WIE AUCH IMMER VERURSACHT UND UNTER WELCHER VERPFLICHTUNG AUCH IMMER, OB IN VERTRAG, STRIKTER VERPFLICHTUNG ODER UNERLAUBTE
+        HANDLUNG (INKLUSIVE FAHRLÄSSIGKEIT) VERANTWORTLICH, AUF WELCHEM WEG SIE AUCH IMMER DURCH DIE BENUTZUNG DIESER SOFTWARE ENTSTANDEN SIND, SOGAR, WENN SIE
+        AUF DIE MÖGLICHKEIT EINES SOLCHEN SCHADENS HINGEWIESEN WORDEN SIND.
+      </p>
+      <p>Aufbau der Grundstruktur:</p>
+      <p>
+        <img src="images/transaktionType.jpg" />
+      </p>
+    </xs:documentation>
+  </xs:annotation>
+
+  <!-- TRANSAKTION BEGINN -->
+  <xs:element name="transaktion">
+    <xs:annotation>
+      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+        <p>Root-Element</p>
+        <p>
+          <img src="images/transaktion.jpg" />
+        </p>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="header" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Header mit Metadaten</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="absender" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Absender des Dokumentes, neunstellige Adressnummer</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{9}" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="empfaenger" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Empfänger des Dokumentes, neunstellige Adressnummer</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{9}" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="sendeZeit" minOccurs="1" maxOccurs="1" type="xs:dateTime">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Versandzeit</p>
+                    <p>Format: yyyy-mm-ddThh:mm:ss.zzz[+/-]xx:xx UTC Time Format Beispiel: 2007-02-17T15:40:32.000+01:00</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"></xs:any>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vorgang" minOccurs="1" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Vorgang mit atomaren Daten</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="1">
+              <xs:element name="adressen" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Liste mit einem oder mehreren "adresse"-Elementen</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="adresse" type="adresse" minOccurs="1" maxOccurs="unbounded">
+                      <xs:annotation>
+                        <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                          <p>Definition des konkreten "adresse"-Elementes</p>
+                          <p>
+                            <img src="images/adresse.jpg" />
+                          </p>
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="sortenZusatzDaten" type="sortenZusatzDaten" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>
+                      Sortenzusatzdaten bestehen immer aus fruchtArten, fruchtArtOberGruppen, fruchtArtGruppen, sortenGruppen, auflagen,
+                      anerkennungsFaehigkeiten. Alle Listen sind bei Angabe von Sortenzusatzdaten zwingend erforderlich.
+                    </p>
+                    <p>
+                      <img src="images/sortenzusatzdaten.jpg" />
+                    </p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="sorten" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Liste mit einem oder mehreren "sorte"-Elementen</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="sorte" type="sorte" minOccurs="1" maxOccurs="unbounded">
+                      <xs:annotation>
+                        <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                          <p>Definition des konkreten "sorte"-Elementes</p>
+                          <p>
+                            <img src="images/sorte.jpg" />
+                          </p>
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="vermehrungsVorhaben" type="vermehrungsVorhaben" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Definition des konkreten "vermehrungsVorhaben"-Elementes</p>
+                    <p>
+                      <img src="images/vermehrungsvorhaben.jpg" />
+                    </p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="pruefdatenKriterien" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>"pruefdatenKriterien" enthält ein oder mehrere "pruefdatenKriterium"-Elemente</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="pruefdatenKriterium" type="pruefdatenKriterium" minOccurs="1" maxOccurs="unbounded">
+                      <xs:annotation>
+                        <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                          <p>Definition des konkreten "pruefdatenKriterium"-Elementes</p>
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="bezugsloseBeschaffenheitsPruefung" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Beschaffenheitsprüfung bei z.B. importierten Sorten aus dem Ausland</p>
+                    <p>
+                      <img src="images/bezugslosebeschaffenheitspruefung.jpg" />
+                    </p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:choice minOccurs="1" maxOccurs="1">
+                      <xs:sequence minOccurs="1" maxOccurs="1">
+                        <xs:element name="fruchtArt" minOccurs="1" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Fruchtartschlüssel BSA für Arten die im Artenverzeichnis stehen: dreistellig</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:minLength value="1" />
+                              <xs:maxLength value="3" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="sortenNummer" minOccurs="1" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Sortennummer (BSA): fünfstellig, bestehend aus Ziffern</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:pattern value="[0-9]{5}" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:sequence minOccurs="1" maxOccurs="1">
+                        <xs:element name="fruchtArtFreitext" minOccurs="1" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Fruchtartfreitext für Arten die NICHT im Artenverzeichnis stehen</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:minLength value="1" />
+                              <xs:maxLength value="255" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="sortenFreitext" minOccurs="1" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Sortenfreitext für Sorten die NICHT beim BSA gelistet sind.</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:minLength value="1" />
+                              <xs:maxLength value="255" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:choice>
+                    <xs:element name="bezugsText" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                          <p>Bezugstext</p>
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:minLength value="1" />
+                          <xs:maxLength value="255" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="beschaffenheitsPruefung" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Definition des abstrakten "beschaffenheitsPruefung"-Elementes und Ableitung in Saatgut/Pflanzgut</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                        <xs:choice minOccurs="1" maxOccurs="1">
+                          <xs:element name="beschaffenheitsPruefungPflanzgut" type="beschaffenheitsPruefungPflanzgut" minOccurs="1" maxOccurs="1" />
+                          <xs:element name="beschaffenheitsPruefungSaatgut" type="beschaffenheitsPruefungSaatgut" minOccurs="1" maxOccurs="1" />
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"></xs:any>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- TRANSAKTION ENDE -->
+
+  <!-- ADRESSE BEGINN -->
+  <xs:complexType name="adresse">
+    <xs:sequence>
+      <xs:element name="adressNummer" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adressnummer: neunstellig, nur Ziffern</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{9}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="anrede" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Anrede</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="20" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="titel" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Akademischer Titel</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="20" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="firma1" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Firmenname, vollständiger Name</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="50" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="firma2" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Firmenzusatz 1, respektive Name</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="50" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="firma3" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Firmenzusatz 2, respektive Vorname</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="50" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:sequence minOccurs="1" maxOccurs="1">
+          <xs:element name="strasse" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Strasse und Hausnummer</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:minLength value="1" />
+                <xs:maxLength value="50" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="plz" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Amtliche Postleitzahl</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:minLength value="1" />
+                <xs:maxLength value="20" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+        <xs:sequence minOccurs="1" maxOccurs="1">
+          <xs:element name="postfach" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Postfach</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:minLength value="1" />
+                <xs:maxLength value="20" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="postfachPlz" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Postleitzahl bei Angabe eines Postfaches</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:minLength value="1" />
+                <xs:maxLength value="20" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:choice>
+      <xs:element name="ort" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Ort</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="50" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ortsteil" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Ortsteil</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="50" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="kreis" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Amtlicher Kennzeichen oder KFZ-Zeichen des Kreises: dreistellig</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="3" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="land" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Land: nach "ISO 3166 Alpha-3" Standard</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-z]{3}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="telefon" minOccurs="0" maxOccurs="3">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Telefon, max. 3 Elemente</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="30" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="fax" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Faxnummer</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="30" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="email" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>E-Mail-Adresse</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="255" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="internet" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Internetadresse der Website</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="255" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="bemerkung" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Bemerkung/Kommentar</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="255" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:choice minOccurs="0" maxOccurs="1">
+        <xs:element name="anerkennungsStelle" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Spezifika Anerkennungsstelle</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="akstNummer" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Adressnummer der Anerkennungsstelle: neunstellig</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="akstNummerAlt" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Adressnummer (Datenaustausch) der Anerkennungsstelle: neunstellig</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="akstBezeichnungAlt" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Alte Bezeichnung der Anerkennungsstelle</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bundesLand" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Bundesland: zweistellig, nur Ziffern</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{2}" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="leiter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Leiter der Anerkennungsstelle</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bearbeiterSaatgut" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Bearbeiter des Saatgutes</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bearbeiterPflanzgut" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Bearbeiter des Pflanzgutes</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="aufbereiter" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Spezifika Aufbereiter</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aufbereiterNummerAlt" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Adressnummer (Datenaustausch) des Aufbereiters: neunstellig, nur Ziffern</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{9}" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="teilnahmeNOB" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Betrieb kann an einer "Nicht obligatorische Beschaffenheitsprüfung" teilnehmen.</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="teilnahmeQSS" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Betrieb kann an einer "QSS" teilnehmen.</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="feldBesichtiger" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Spezifika Feldbesichtiger</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="privat" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Privater Feldbesichtiger: JA/NEIN</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="probeNehmer" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Spezifika Probenehmer</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="privat" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Privater Probenehmer: JA/NEIN</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pruefStelle" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Spezifika Prüfstelle</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="pruefstNummer" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Prüfstellennummer: sechsstellig, alphanummerisch</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="pruefstBezeichnungAlt" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Alte Bezeichnung der Prüfstelle</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bundesLand" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Bundesland: zweistellig, nur Ziffern</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{2}" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="privat" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Private Prüfstelle: JA/NEIN</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="leiter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Leiter der Prüfstelle</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bearbeiterSaatgut" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Bearbeiter des Saatgutes</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bearbeiterPflanzgut" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Bearbeiter des Pflanzgutes</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="saatbauInspektion" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Spezifika Prüfstelle</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="bundesLand" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Bundesland: zweistellig, nur Ziffern</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{2}" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="leiter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Leiter der SBI</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bearbeiterSaatgut" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Bearbeiter des Saatgutes</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bearbeiterPflanzgut" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Bearbeiter des Pflanzgutes</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vermehrer" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Spezifika Vermehrer</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="vermehrerNummerAlt" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Adressnummer (Datenaustausch) des Vermehrers: neunstellig, nur Ziffern</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{9}" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="invekosNummer" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>INVEKOS-Nummer: zehnstellig</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="euBetriebsNummer" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>EU-Betriebsnummer: sechszehnstellig</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="16" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="oekoBetrieb" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Ökobetrieb</p>
+                    <ul>
+                      <li>true = ja</li>
+                      <li>false = nein</li>
+                    </ul>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="anerkennungsBezirksNummer" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Nummer des Anerkennungsbezirkes: dreistellig</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="zugehoerigkeitSaatbauInspektion" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Adressnummer der Saatbauinspektion: neunstellig, nur Ziffern</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{9}" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vertriebsOrganisation" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Spezifika VO</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence></xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="unterVertriebsOrganisation" minOccurs="1" maxOccurs="1" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Spezifika Unter-VO</p>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="zuechter" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Spezifika Züchter</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence></xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+      <xs:element name="letzteAenderung" minOccurs="1" maxOccurs="1" type="xs:date">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Datum der letzten Änderung</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="gesperrt" minOccurs="1" maxOccurs="1" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <ul>
+              <li>true = gesperrt</li>
+              <li>false = nicht gesperrt</li>
+            </ul>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="aktion" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Datenbankaktion für das Objekt</p>
+            <ul>
+              <li>anfordern</li>
+              <li>aendern</li>
+              <li>loeschen</li>
+              <li>NA (nicht definiert)</li>
+            </ul>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="anfordern" />
+            <xs:enumeration value="aendern" />
+            <xs:enumeration value="loeschen" />
+            <xs:enumeration value="NA" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- ADRESSE ENDE -->
+
+  <!-- SORTENZUSATZDATEN BEGINN -->
+  <xs:complexType name="sortenZusatzDaten">
+    <xs:sequence>
+      <xs:element name="fruchtArtOberGruppen" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>"fruchtArtOberGruppen" enthält ein oder mehrere "fruchtArtOberGruppe"-Elemente</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="fruchtArtOberGruppe" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Fruchtartobergruppe</p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="fruchtArtOberGruppeNummer" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Nummer der Fruchtartobergruppe</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="2" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="fruchtArtOberGruppeName" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Bezeichnung/Name der Fruchtartobergruppe</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="fruchtArtGruppen" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>"fruchtArtGruppen" enthält ein oder mehrere "fruchtArtGruppe"-Elemente</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="fruchtArtGruppe" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Fruchtartgruppe</p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="fruchtArtGruppeNummer" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Nummer der Fruchtartgruppe</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="2" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="fruchtArtGruppeName" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Bezeichnung/Name der Fruchtartgruppe</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="fruchtArtOberGruppeReferenz" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Referenz zur Fruchtartobergruppe (in Form der Nummer)</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="2" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="fruchtArten" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>"fruchtArten" enthält ein oder mehrere "fruchtArt"-Elemente</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="fruchtArt" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Fruchtart</p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="fruchtArtKurzBezeichner" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Kurzbezeichner bzw. Kennbuchstabe der Fruchtart</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="3" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="fruchtArtName" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Name der Fruchtart</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="fruchtArtBotanischerName" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Botanischer Name der Fruchtart</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="fruchtArtOberGruppeReferenz" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Referenz auf die Fruchtartgruppe (In Form der Nummer)</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="2" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="fruchtArtGruppeReferenz" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Referenz auf die Fruchtartgruppe (In Form der Nummer)</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="2" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="unterFruchtArten" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>"unterFruchtArten" enthält ein oder mehrere "unterFruchtArt"-Elemente</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="unterFruchtArt" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Unterfruchtart</p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="unterFruchtArtKurzBezeichner" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Kurzbezeichner/Kennziffer der Unterfruchtart</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="1" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="unterFruchtArtName" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Name der Unterfruchtart</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="unterFruchtArtBotanischerName" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Botanischer Name der Unterfruchtart</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="fruchtArtReferenz" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Referenz auf die Fruchtartgruppe (In Form des Kurzbezeichners)</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="3" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="sortenGruppen" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>"sortenGruppen" enthält ein oder mehrere "sortenGruppe"-Elemente</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="sortenGruppe" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Sortengruppe</p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="sortenGruppeNummer" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Nummer der Sortengruppe</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="2" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="sortenGruppeName" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Bezeichnung/Name der Sortengruppe</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="fruchtArtReferenz" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Referenz auf die Fruchtart, dreistellig</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="3" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="unterFruchtArtReferenz" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Referenz auf die Unterfruchtart, einstellig, optional</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="1" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="auflagen" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>"auflagen" enthält ein oder mehrere "auflage"-Elemente</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="auflage" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Auflage</p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="auflageNummer" minOccurs="1" maxOccurs="1" type="xs:integer">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Nummer der Auflage</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="auflageText" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Beschreibung der Auflage</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="100" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="anerkennungsFaehigkeiten" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>"anerkennungsFaehigkeiten" enthält ein oder mehrere "anerkennungsFaehigkeit"-Elemente</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="anerkennungsFaehigkeit" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Anerkennungsfähigkeit</p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="anerkennungsFaehigkeitNummer" minOccurs="1" maxOccurs="1" type="xs:integer">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Nummer der Anerkennungsfähigkeit</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="anerkennungsFaehigkeitText" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Beschreibung der Anerkennungsfähigkeit</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="100" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- SORTENZUSATZDATEN ENDE -->
+
+  <!-- SORTE BEGINN -->
+  <xs:complexType name="sorte">
+    <xs:sequence>
+      <xs:element name="sortenNummer" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Sortennummer (BSA): fünfstellig, bestehend aus Ziffern</p>
+            <p>Ist bei vorläufigen Sorten (Satzart 3) optional</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{5}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="sortenName" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Name der Sorte</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="50" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="fruchtArtOberGruppe" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Referenz auf Fruchtartobergruppe</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="2" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="fruchtArtGruppe" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Referenz auf Fruchtartgruppe</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="2" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="fruchtArt" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Referenz auf Fruchtart: dreistellig</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="3" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="unterFruchtArt" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Referenz auf Unterfruchtart: einstellig</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="sortenGruppe" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Referenz auf Sortengruppe: zweistellig</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="zuechter" type="adresse" minOccurs="0" maxOccurs="3">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Züchters</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="zuechterVertrieb" type="adresse" minOccurs="0" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Züchtervertriebes</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rechnungsEmpfaenger" type="adresse" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Rechnungsempfängers</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="anerkennungsFaehigkeit" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Anerkennungsfähigkeit der Sorte</p>
+            <ul>
+              <li>1 = Zugelassene Sorte</li>
+              <li>2 = §55-Sorte</li>
+              <li>3 = Stämme</li>
+              <li>9 = nicht zuordenbar (gesperrt)</li>
+            </ul>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:integer">
+            <xs:enumeration value="1" />
+            <xs:enumeration value="2" />
+            <xs:enumeration value="3" />
+            <xs:enumeration value="9" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="satzart1" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="sortenZusatzText" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Codierte Kriterien des BSA im Originaltext</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="auflagenNummer" minOccurs="0" maxOccurs="1" type="xs:integer">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Saatgut der Sorte darf nur mit dem Hinweis zu gewerblichen Zwecken in den Verkehr gebracht werden:</p>
+                    <ul>
+                      <li>1 = Nicht zur Nutzung als Futterpflanze bestimmt</li>
+                      <li>2 = Erbkomponenten</li>
+                      <li>4 = Zur Ausfuhr außerhalb der Vertragsstaaten bestimmt</li>
+                      <li>5 = Nur für Grünnutzung</li>
+                      <li>6 = Für Herbstaussaat bestimmt</li>
+                      <li>9 = Bitterlupine</li>
+                      <li>15 = Nur zur Nutzung als Bestäuber bestimmt</li>
+                      <li>20 = nicht mehr gültig</li>
+                      <li>40 = nicht mehr gültig</li>
+                    </ul>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="datumZulassung" minOccurs="1" maxOccurs="1" type="xs:date">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Datum der Zulassung</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="dauerZulassung" minOccurs="1" maxOccurs="1" type="xs:date">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Dauer der Zulassung</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="auslauffristAnerkennung" minOccurs="0" maxOccurs="1" type="xs:date">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Auslauffrist</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="auslaufVerkehrsFaehigkeit" minOccurs="0" maxOccurs="1" type="xs:date">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Auslauf der Verkehrsfähigkeit</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="verlaengerungsAntragGestellt" minOccurs="1" maxOccurs="1" type="xs:boolean">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>true = Verlängerungsantrag gestellt</p>
+                    <p>false = Verlängerungsantrag nicht gestellt</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="satzart2" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="sortenZusatzText" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Codierte Kriterien des BSA im Originaltext</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="auflagenNummer" minOccurs="0" maxOccurs="1" type="xs:integer">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Saatgut der Sorte darf nur mit dem Hinweis zu gewerblichen Zwecken in den Verkehr gebracht werden:</p>
+                    <ul>
+                      <li>1 = Nicht zur Nutzung als Futterpflanze bestimmt</li>
+                      <li>2 = Erbkomponenten</li>
+                      <li>4 = Zur Ausfuhr außerhalb der Vertragsstaaten bestimmt</li>
+                      <li>5 = Nur für Grünnutzung</li>
+                      <li>6 = Für Herbstaussaat bestimmt</li>
+                      <li>9 = Bitterlupine</li>
+                      <li>15 = Nur zur Nutzung als Bestäuber bestimmt</li>
+                      <li>20 = nicht mehr gültig</li>
+                      <li>40 = nicht mehr gültig</li>
+                    </ul>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="dauerAnerkennungsfaehigkeit" minOccurs="1" maxOccurs="1" type="xs:date">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Dauer der Anerkennungsfähigkeit</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="datumBescheid" minOccurs="0" maxOccurs="1" type="xs:date">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Datum des Bescheides</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="auflageVS" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Zugelassen in den Ländern</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="22" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="satzart3" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="vorlaeufigeNummer" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Vorläufige Nummer</p>
+                    <p>Entspricht die Vorläufige Nummer der Sortennummer (BSA), dann handelt es sich hierbei um einen züchtereigenen Stamm.</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{5}" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="datumAntrag" minOccurs="1" maxOccurs="1" type="xs:date">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Datum des Antrages</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="satzart4" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="datumLoeschung" minOccurs="1" maxOccurs="1" type="xs:date">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Datum der Löschung</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+      <xs:element name="reihenfolgeNummerBSA" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Reihenfolgenummer des BSA</p>
+            <p>TODO: Wie lang, num. oder alphanum.</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="10" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:choice minOccurs="0" maxOccurs="1">
+        <xs:element name="sortenKriterienSaatgut" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Sortenkritieren von Saatgut</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="einjaehrig" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Einjährigkeit: JA/NEIN</p>
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sortenKriterienPlanzgut" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+              <p>Sortenkritieren von Pflanzgut</p>
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="reifeGruppe" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Reifegruppe</p>
+                    <ul>
+                      <li>1 = sehr früh</li>
+                      <li>2 = früh</li>
+                      <li>3 = mittelfrüh</li>
+                      <li>4 = mittelspät</li>
+                      <li>6 = EG-Sorten, die keiner Reifegruppe zugeordnet werden konnten</li>
+                    </ul>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:integer">
+                    <xs:enumeration value="1" />
+                    <xs:enumeration value="2" />
+                    <xs:enumeration value="3" />
+                    <xs:enumeration value="4" />
+                    <xs:enumeration value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ro1" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Rhizoctonia-Krankheit 1</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ro2" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Rhizoctonia-Krankheit 2</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ro3" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Rhizoctonia-Krankheit 3</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ro4" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Rhizoctonia-Krankheit 4</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ro5" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Rhizoctonia-Krankheit 5</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="pa2" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Globodera pallida-Befall 2</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="pa3" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Globodera pallida-Befall 3</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="virusTestV" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Virustest Vorstufe</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="virusTestB" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Virustest Basis</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="virusTestZ" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                    <p>Virustest Zertifiziert</p>
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+      <xs:element name="letzteAenderung" minOccurs="1" maxOccurs="1" type="xs:date">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Datum der letzten Änderung</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- SORTE ENDE -->
+
+  <!-- VERMEHRUNGSVORHABEN BEGINN -->
+  <xs:complexType name="vermehrungsVorhaben">
+    <xs:sequence>
+      <xs:element name="akstVorhabenId" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Amtliche Vorhabennummer der Anerkennungsstellen, 21-stellig</p>
+            <p>Die Vorhabennummer wird ausschließlich von den Anerkennungsstellen vergeben!</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9A-Z]{21}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="webseedVorhabenId" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Von WebSeed generierte (vorläufige) Vorhabennummer, 21-stellig</p>
+            <p>Wird grundsätzlich dazu verwendet, um Vorhaben auf korrespondierende WebSeed-Objekte zu mappen.</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9A-Z]{21}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="sorte" type="sorte" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Sorte</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="anmelder" type="adresse" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Anmelders</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="vertriebsOrganisation" type="adresse" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse der VO</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="zuechter" type="adresse" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Züchters</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="vermehrer" type="adresse" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Vermehrers</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rechnungsEmpfaenger" type="adresse" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Rechnungsempfängers</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="unterVO" type="adresse" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse der Unter-VO</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="aufbereiter" type="adresse" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Aufbereiters</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="anerkennungsstelle" type="adresse" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse der Anerkennungsstelle</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="geplanterFeldbesichtiger" type="adresse" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Feldbesichtigers</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="saatgutKategorie" type="saatgutKategorie" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Kategorie des Saatgutes</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="vermehrungArt" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Art der Vermehrung</p>
+            <ul>
+              <li>N = Normalvermehrung</li>
+              <li>O = Ökovermehrung</li>
+              <li>G = Genveränderte Vermehrung</li>
+            </ul>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="N" />
+            <xs:enumeration value="O" />
+            <xs:enumeration value="G" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="oekoNummer" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Nummer für ökologische Vermehrungen</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{20}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nob" minOccurs="1" maxOccurs="1" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Nicht obligatorische Beschaffenheitsprüfung</p>
+            <ul>
+              <li>true = Nicht obligatorische Beschaffenheitsprüfung</li>
+              <li>false = normale Beschaffenheitsprüfung</li>
+            </ul>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="aussaatJahr" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Aussaatjahr</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{4}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ernteJahr" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Erntejahr</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{4}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="andererVerwendungszwecks" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Anderer Verwendungenzweck der Vermehrung</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="verwendung" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Verwendung</p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="schlagBezeichnung" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Bezeichnung/Name des Schlages</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="flaeche" minOccurs="1" maxOccurs="1" type="xs:float">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Fläche</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="verwendungsTyp" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Typ der Verwendung</p>
+                        <ul>
+                          <li>1 = Wirtschaftskartoffel</li>
+                          <li>2 = Eigenvermehrung</li>
+                        </ul>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:integer">
+                        <xs:enumeration value="1" />
+                        <xs:enumeration value="2" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="bemerkung" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Bemerkung/Kommentar</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="255" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="saatgutBezuege" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Liste mit einem oder mehreren "saatgutBezug"-Elementen</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="saatgutBezug" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Definition des konkreten "saatgutBezug"-Elementes</p>
+                  <p>
+                    <img src="images/saatgutbezug.jpg" />
+                  </p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="anerkennungsNummer" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Anerkennungsnummer</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="20" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="menge" minOccurs="1" maxOccurs="1" type="xs:double">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Menge des Bezuges</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="saatgutKategorie" type="saatgutKategorie" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Saatgutkategorie des Bezuges</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="fraktion" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Drilling</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="10" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="feldStuecke" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Liste mit einem oder mehreren "feldStueck"-Elementen</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="feldStueck" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Definition des konkreten "feldStueck"-Elementes</p>
+                  <p>
+                    <img src="images/feldstueck.jpg" />
+                  </p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="akstFeldstueckID" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Amtliche Kennnummer der Anerkennungsstellen, 21-stellig</p>
+                        <p>Die Kennnummer wird ausschließlich von den Anerkennungsstellen vergeben!</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="21" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="webseedFeldstueckID" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Von WebSeed generierte (vorläufige) Kennnummer, 21-stellig</p>
+                        <p>Wird grundsätzlich dazu verwendet, um Feldstücke auf korrespondierende WebSeed-Objekte zu mappen.</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="21" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="schlagNummer" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Schlagnummer (+ Teilschlagnummer), dreistellig</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:pattern value="[0-9]{3}" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="bezeichnung" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Bezeichnung des Feldstückes</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="flaeche" minOccurs="1" maxOccurs="1" type="xs:float">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Fläche</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="gemarkung" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Gemarkung</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="gemarkungPlz" minOccurs="1" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Postleitzahl der Gemarkung</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:minLength value="1" />
+                              <xs:maxLength value="20" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="gemarkungOrt" minOccurs="1" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Ort der Gemarkung</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:minLength value="1" />
+                              <xs:maxLength value="50" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="gemarkungOrtsteil" minOccurs="0" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Ortsteil der Gemarkung</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:minLength value="1" />
+                              <xs:maxLength value="50" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="gemarkungLand" minOccurs="1" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Land der Gemarkung</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:pattern value="[A-Za-z]{3}" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="geoDaten" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Geographische Daten</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="flurstuecksNummern" minOccurs="0" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Flurstücksnummern lt. Kataster</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element name="flurstuecksNummer" minOccurs="1" maxOccurs="unbounded" type="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                                    <p>Eine Flurstücksnummer</p>
+                                  </xs:documentation>
+                                </xs:annotation>
+                              </xs:element>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                        <xs:element name="feldblockNummern" minOccurs="0" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Feldblocknummern (geographische Abgrenzung)</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element name="feldblockNummer" minOccurs="1" maxOccurs="unbounded" type="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                                    <p>Eine Feldblocknummer</p>
+                                  </xs:documentation>
+                                </xs:annotation>
+                              </xs:element>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                        <xs:element name="gpsDaten" minOccurs="0" maxOccurs="1">
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element name="gpsKoordinate" minOccurs="1" maxOccurs="unbounded" type="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                                    <p>Eine GPS-Koordinate</p>
+                                  </xs:documentation>
+                                </xs:annotation>
+                              </xs:element>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="vorFruechte" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Liste mit einem oder zwei "vorFrucht"-Elementen</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="vorFrucht" minOccurs="1" maxOccurs="unbounded">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Definition des konkreten "vorFrucht"-Elementes</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element name="jahr" minOccurs="1" maxOccurs="1">
+                                <xs:annotation>
+                                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                                    <p>Jahr des Anbaus der Vorfrucht</p>
+                                  </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:minLength value="1" />
+                                    <xs:maxLength value="4" />
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:element>
+                              <xs:element name="vorFruchtArt" minOccurs="1" maxOccurs="1">
+                                <xs:annotation>
+                                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                                    <p>Vorfruchtart</p>
+                                  </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:minLength value="1" />
+                                    <xs:maxLength value="3" />
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:element>
+                              <xs:element name="vorSorte" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                                    <p>Vorsorte</p>
+                                  </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:minLength value="1" />
+                                    <xs:maxLength value="50" />
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:element>
+                              <xs:element name="freiText" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                  <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                                    <p>Freitext</p>
+                                  </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:minLength value="1" />
+                                    <xs:maxLength value="100" />
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:element>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="schnitt" minOccurs="0" maxOccurs="1" type="xs:integer">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Schnitt</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="anzahlSchilder" minOccurs="0" maxOccurs="1" type="xs:integer">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Anzahl der Schilder</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="zusatzAngaben" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Zusätzliche Angaben</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="nematodenAttest" minOccurs="0" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Nematodenattest</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:minLength value="1" />
+                              <xs:maxLength value="10" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="flaecheNematodenFrei" minOccurs="0" maxOccurs="1" type="xs:float">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Nematodenfreie Fläche</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:element>
+                        <xs:element name="flaecheNematodenUnFrei" minOccurs="0" maxOccurs="1" type="xs:float">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Nematodenunfreie Fläche</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:element>
+                        <xs:element name="vorgewende" minOccurs="0" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Vorgewende</p>
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:minLength value="1" />
+                              <xs:maxLength value="20" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="feldbestandsPruefungen" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Liste mit einem oder mehreren "feldbestandsPruefung*"-Elementen</p>
+                        <p>ANMERKUNG: Liste hält zur Zeit genau ein Element</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                      <xs:annotation>
+                        <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                          <p>Definition des abstrakten "feldbestandsPruefung"-Elementes und Ableitung in Saatgut/Pflanzgut</p>
+                          <p>
+                            <img src="images/feldbestandspruefung.jpg" />
+                          </p>
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:choice minOccurs="1" maxOccurs="1">
+                        <xs:element name="feldbestandsPruefungPflanzgut" type="feldbestandsPruefungPflanzgut" minOccurs="1" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>
+                                <img src="images/feldbestandspruefung_pflanzgut.jpg" />
+                              </p>
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:element>
+                        <xs:element name="feldbestandsPruefungSaatgut" type="feldbestandsPruefungSaatgut" minOccurs="1" maxOccurs="1">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>
+                                <img src="images/feldbestandspruefung_saatgut.jpg" />
+                              </p>
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:element>
+                      </xs:choice>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="beschaffenheitsPruefungen" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Liste mit einem oder mehreren "beschaffenheitsPruefung*"-Elementen</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                      <xs:annotation>
+                        <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                          <p>Definition des abstrakten "beschaffenheitsPruefung"-Elementes und Ableitung in Saatgut/Pflanzgut</p>
+                          <p>
+                            <img src="images/beschaffenheitspruefung.jpg" />
+                          </p>
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:choice minOccurs="1" maxOccurs="1">
+                        <xs:element name="beschaffenheitsPruefungPflanzgut" type="beschaffenheitsPruefungPflanzgut" minOccurs="1" maxOccurs="unbounded">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>
+                                <img src="images/beschaffenheitspruefung_pflanzgut.jpg" />
+                              </p>
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:element>
+                        <xs:element name="beschaffenheitsPruefungSaatgut" type="beschaffenheitsPruefungSaatgut" minOccurs="1" maxOccurs="unbounded">
+                          <xs:annotation>
+                            <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                              <p>
+                                <img src="images/beschaffenheitspruefung_saatgut.jpg" />
+                              </p>
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:element>
+                      </xs:choice>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="letzteAenderung" minOccurs="1" maxOccurs="1" type="xs:date">
+                    <xs:annotation>
+                      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                        <p>Datum der letzten Änderung</p>
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="abbruch" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Abbruch eines Vorhabens</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="antragsDatum" type="xs:date" minOccurs="1" maxOccurs="1">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Datum des Antrages für einen Abbruch</p>
+                </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="abbruchsGrund" minOccurs="1" maxOccurs="1">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Grund für einen Abbruch</p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:minLength value="1" />
+                  <xs:maxLength value="255" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="letzteAenderung" minOccurs="1" maxOccurs="1" type="xs:date">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Datum der letzten Änderung</p>
+            <p>Entspricht dem Datum der letzten Änderung des zu letzt geänderten Feldstückes.</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- VERMEHRUNGSVORHABEN ENDE -->
+
+  <!-- PRÜFDATENKRITERIUM BEGINN -->
+  <xs:complexType name="pruefdatenKriterium">
+    <xs:sequence>
+      <xs:element name="kriteriumNummer" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Nummer/Schlüssel des Kriteriums</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="4" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="kriteriumText" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Beschreibung des Kriteriums</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="100" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="kriteriumVerwendung" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Verwendung des Kriteriums</p>
+            <ul>
+              <li>FB = Feldbestandsprüfung</li>
+              <li>BP = Beschaffenheitsprüfung</li>
+            </ul>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="FB" />
+            <xs:enumeration value="BP" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- PRÜFDATENKRITERIUM ENDE -->
+
+  <!-- FELDBESTANDSPRÜFUNG BEGINN -->
+  <!-- Abstrakte Definition -->
+  <xs:complexType name="feldbestandsPruefung" abstract="true">
+    <xs:sequence>
+      <xs:element name="besichtigungsArt" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Art der Besichtigung</p>
+            <ul>
+              <li>S = Standardbesichtigung</li>
+              <li>N = Nachbesichtigung</li>
+              <li>W = Wiederholungsbesichtigung</li>
+              <li>K = Kontrolle</li>
+              <li>Z = Vollständige Zurückziehung</li>
+            </ul>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="S" />
+            <xs:enumeration value="N" />
+            <xs:enumeration value="W" />
+            <xs:enumeration value="K" />
+            <xs:enumeration value="Z" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="besichtigungsDatum" minOccurs="1" maxOccurs="1" type="xs:date">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Datum der Besichtigung</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="besichtiger" type="adresse" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Besichtigers</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="flaecheZurueckgezogen" minOccurs="0" maxOccurs="1" type="xs:float">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Zurückgezogene Fläche</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="grundZurueckziehung" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Grund für die Zurückziehung</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="255" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="flaecheMitErfolg" minOccurs="0" maxOccurs="1" type="xs:float">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Besichtigte Fläche mit Erfolg</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="flaecheOhneErfolg" minOccurs="0" maxOccurs="1" type="xs:float">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Besichtigte Fläche ohne Erfolg</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="grundOhneErfolg" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Grund warum Flächen nicht erfolgreich waren</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="255" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="saatgutKategorieNachBesichtigung" type="saatgutKategorie" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Saatgutkategorie nach der Besichtigung</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ertragsSchaetzung" minOccurs="0" maxOccurs="1" type="xs:float">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Ertragsschätzung</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="aberkennungsGrund" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Grund der Aberkennung</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="100" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="bemerkung" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Bemerkung</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="255" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Ableitung Pflanzgut -->
+  <xs:complexType name="feldbestandsPruefungPflanzgut">
+    <xs:annotation>
+      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+        <p>Ableitung für Pflanzgut</p>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="feldbestandsPruefung">
+        <xs:sequence>
+          <xs:element name="virusSchwer" minOccurs="0" maxOccurs="1" type="xs:float">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Virus schwer</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="virusLeicht" minOccurs="0" maxOccurs="1" type="xs:float">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Virus leicht</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="rhizoctonia" minOccurs="0" maxOccurs="1" type="xs:float">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Rhizoctonia</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="schwarzBeinigkeit" minOccurs="0" maxOccurs="1" type="xs:float">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Schwarzbeinigkeit</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="fehlStellen" minOccurs="0" maxOccurs="1" type="xs:float">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Fehlstellen</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="fremdBesatz" minOccurs="0" maxOccurs="1" type="xs:float">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Fremdbesatz</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="verdachtsTest" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Verdachtstest</p>
+                <ul>
+                  <li>true = JA</li>
+                  <li>false = NEIN</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="grundVerdachtsTest" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Grund für einen Verdachtstest</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:minLength value="1" />
+                <xs:maxLength value="255" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="krautEntfernt" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Kraut entfernt</p>
+                <ul>
+                  <li>true = JA</li>
+                  <li>false = NEIN</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kontrolleLagerung" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Kontrolle des Lagerung</p>
+                <ul>
+                  <li>true = JA</li>
+                  <li>false = NEIN</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="testgrundVirus" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Testgrund Virus</p>
+                <ul>
+                  <li>TB = Testbefreiung</li>
+                  <li>VS = Test für Vorstufen-Saatgut</li>
+                  <li>B = Test für Basis-Saatgut</li>
+                  <li>Z1 = Test für Z1-Saatgut</li>
+                  <li>Z2 = Test für Z2-Saatgut</li>
+                  <li>Z3 = Test für Z3-Saatgut</li>
+                  <li>VD = Verdachtstest</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="TB" />
+                <xs:enumeration value="VS" />
+                <xs:enumeration value="B" />
+                <xs:enumeration value="Z1" />
+                <xs:enumeration value="Z2" />
+                <xs:enumeration value="Z3" />
+                <xs:enumeration value="VD" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="testgrundQuarantaene" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Testgrund Quarantäne</p>
+                <ul>
+                  <li>kT = kein Test</li>
+                  <li>QT = Test auf Quarantänekrankheiten</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="kT" />
+                <xs:enumeration value="QT" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Ableitung Saatgut -->
+  <xs:complexType name="feldbestandsPruefungSaatgut">
+    <xs:annotation>
+      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+        <p>Ableitung für Saatgut</p>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="feldbestandsPruefung">
+        <xs:sequence>
+          <xs:element name="flaecheParagraph8" minOccurs="0" maxOccurs="1" type="xs:float">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Fläche nach §8</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="grundParagraph8" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Grund für Fläche nach §8</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:minLength value="1" />
+                <xs:maxLength value="255" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="grundNachbesichtigung" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Grund für eine Nachbesichtigung</p>
+                <ul>
+                  <li>1 = Schild fehlt</li>
+                  <li>2 = Trennstreifen zum Nachbarschlag fehlt</li>
+                  <li>3 = Trennstreifen im Vermehrungsschlag fehlt</li>
+                  <li>4 = Ränder nicht gemäht</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:integer">
+                <xs:enumeration value="1" />
+                <xs:enumeration value="2" />
+                <xs:enumeration value="3" />
+                <xs:enumeration value="4" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="allgemeinerEindruck" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Allgemeiner Eindruck</p>
+                <ul>
+                  <li>1 = gut / sehr gut</li>
+                  <li>2 = mittel</li>
+                  <li>3 = mäßig</li>
+                  <li>4 = schlecht</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:integer">
+                <xs:enumeration value="1" />
+                <xs:enumeration value="2" />
+                <xs:enumeration value="3" />
+                <xs:enumeration value="4" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="entwicklung" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Entwicklung</p>
+                <ul>
+                  <li>1 = gleichmäßig</li>
+                  <li>2 = etwas ungleich</li>
+                  <li>3 = ungleich</li>
+                  <li>4 = stark ungleich</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:integer">
+                <xs:enumeration value="1" />
+                <xs:enumeration value="2" />
+                <xs:enumeration value="3" />
+                <xs:enumeration value="4" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="lager" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Lager</p>
+                <ul>
+                  <li>1 = ohne</li>
+                  <li>2 = mittel</li>
+                  <li>3 = stark</li>
+                  <li>4 = streifig</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:integer">
+                <xs:enumeration value="1" />
+                <xs:enumeration value="2" />
+                <xs:enumeration value="3" />
+                <xs:enumeration value="4" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="zwiewuchs" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Zwiewuchs</p>
+                <ul>
+                  <li>true = JA</li>
+                  <li>false = NEIN</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="naesse" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Nässe</p>
+                <ul>
+                  <li>true = JA</li>
+                  <li>false = NEIN</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="duerre" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Dürre</p>
+                <ul>
+                  <li>true = JA</li>
+                  <li>false = NEIN</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="flugbrandEntfernt" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Flugbrand entfernt</p>
+                <ul>
+                  <li>true = JA</li>
+                  <li>false = NEIN</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="feldbestandsPruefungsKriterien" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Liste mit einem oder mehreren "feldbestandsPruefungsKriterium"-Elementen</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="feldbestandsPruefungsKriterium" minOccurs="1" maxOccurs="unbounded">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Definition eines konkreten "feldbestandsPruefungsKriterium"-Elementes</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="feldbestandsPruefungsKriteriumNummer" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Nummer/Schlüssel des Kriteriums</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1" />
+                            <xs:maxLength value="4" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                      <xs:element name="feldbestandsPruefungsKriteriumWert" minOccurs="1" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Wert des Kriteriums</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="feldbestandsPruefungsKriteriumText" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Text/Beschreibung des Kriteriums</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1" />
+                            <xs:maxLength value="100" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                      <xs:element name="feldbestandsPruefungsKriteriumSumme" minOccurs="1" maxOccurs="1" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Einzel- oder Summenkriterium</p>
+                            <ul>
+                              <li>false = Einzelkriterium</li>
+                              <li>true = Summenkriterium</li>
+                            </ul>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!-- FELDBESTANDSPRÜFUNG ENDE -->
+
+  <!-- BESCHAFFENHEITSPRÜFUNG BEGINN -->
+  <!-- Abstrakte Definition -->
+  <xs:complexType name="beschaffenheitsPruefung" abstract="true">
+    <xs:sequence>
+      <xs:element name="anerkennungsStelle" type="adresse" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse der Anerkennungsstelle</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="pruefStelle" type="adresse" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse der Prüfstelle</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="probeNehmer" type="adresse" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Probenehmers</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="aufbereiter" type="adresse" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Adresse des Probenehmers</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="untersuchungsJahr" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Jahr der Untersuchung</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="4" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="anerkennungsNummer" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Anerkennungsnummer</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="20" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="anerkennungsErgebnis" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Anerkennungsergebnis</p>
+            <ul>
+              <li>J = anerkannt</li>
+              <li>N = abgelehnt</li>
+              <li>O = offen</li>
+            </ul>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="J" />
+            <xs:enumeration value="N" />
+            <xs:enumeration value="O" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="saatgutKategorieNachBeschaffenheit" type="saatgutKategorie" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Saatgutkategorie nach der Beschaffenheitsprüfung</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="untersuchungsGebuehr" minOccurs="0" maxOccurs="1" type="xs:float">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Untersuchungsgebühr</p>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="bemerkungen" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+            <p>Bemerkungen/Kommentare</p>
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="bemerkungsText" minOccurs="1" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Text</p>
+                </xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:minLength value="1" />
+                  <xs:maxLength value="255" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Ableitung Pflanzgut -->
+  <xs:complexType name="beschaffenheitsPruefungPflanzgut">
+    <xs:complexContent>
+      <xs:extension base="beschaffenheitsPruefung">
+        <xs:sequence>
+          <xs:element name="virusPruefung" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Virusprüfung</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="untersuchungsNummer" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Untersuchungsnummer für Virusprüfung</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:minLength value="1" />
+                      <xs:maxLength value="8" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="probenahmeDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Datum der Probenahme</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="probenEingangsDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Eingang der Probe (Datum)</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="entscheidungsDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Datum der Entscheidung</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="bescheidDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Ausfertigung des Bescheides (Datum)</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="testGrund" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Testgrund Virus</p>
+                      <ul>
+                        <li>TB = Testbefreiung</li>
+                        <li>VS = Test für Vorstufen-Saatgut</li>
+                        <li>B = Test für Basis-Saatgut</li>
+                        <li>Z1 = Test für Z1-Saatgut</li>
+                        <li>Z2 = Test für Z2-Saatgut</li>
+                        <li>Z3 = Test für Z3-Saatgut</li>
+                        <li>VD = Verdachtstest</li>
+                      </ul>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="TB" />
+                      <xs:enumeration value="VS" />
+                      <xs:enumeration value="B" />
+                      <xs:enumeration value="Z1" />
+                      <xs:enumeration value="Z2" />
+                      <xs:enumeration value="Z3" />
+                      <xs:enumeration value="VD" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="schwer" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Schwere Viruserkrankung</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="virusBlattroll" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Blattroll Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusY" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Y-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusA" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>A-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusM" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>M-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusX" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>X-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusS" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>S-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusMosaik" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Mosaik-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="leicht" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Leichte Viruserkrankung</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="virusBlattroll" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Blattroll Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusY" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Y-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusA" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>A-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusM" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>M-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusX" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>X-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusS" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>S-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusMosaik" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Mosaik-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="latent" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Latente Viruserkrankung</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="virusBlattroll" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Blattroll Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusY" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Y-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusA" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>A-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusM" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>M-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusX" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>X-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusS" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>S-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="virusMosaik" minOccurs="0" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Mosaik-Virus</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="virusGesamt" minOccurs="1" maxOccurs="1" type="xs:float">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Virus gesamt</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="saatgutKategorieNachVirustest" type="saatgutKategorie" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Saatgutkategorie nach Virustest</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="fremdPflanzen" minOccurs="0" maxOccurs="1" type="xs:float">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Fremdpflanzen</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="quarantaenePruefung" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Quarantäneprüfung</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="untersuchungsNummer" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Untersuchungsnummer für Quarantäneprüfung</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:minLength value="1" />
+                      <xs:maxLength value="8" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="probenahmeDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Datum der Probenahme</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="probenEingangsDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Eingang der Probe (Datum)</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="entscheidungsDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Datum der Entscheidung</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="bescheidDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Ausfertigung des Bescheides (Datum)</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="testgrund" minOccurs="1" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Testgrund</p>
+                      <ul>
+                        <li>kT = kein Test</li>
+                        <li>QT = Test auf Quarantänekrankheiten</li>
+                      </ul>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="kT" />
+                      <xs:enumeration value="QT" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="cms" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>CMS-Erkrankung (Clavibacter michiganensis sol., Bakterielle Ringfäule)</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ergebnis" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Ergebnis CMS</p>
+                            <ul>
+                              <li>no = noch offen</li>
+                              <li>mE = mit Erfolg</li>
+                              <li>oE = ohne Erfolg</li>
+                            </ul>
+                          </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="no" />
+                            <xs:enumeration value="mE" />
+                            <xs:enumeration value="oE" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                      <xs:element name="grundOhneErfolg" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Grund (ohne Erfolg)</p>
+                            <ul>
+                              <li>wb = wahrscheinlich befallen</li>
+                              <li>pS = zwei positive Screenings</li>
+                              <li>kl = klonaler Zusammenhang</li>
+                              <li>BB = Befall im Betrieb</li>
+                            </ul>
+                          </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="wb" />
+                            <xs:enumeration value="pS" />
+                            <xs:enumeration value="kl" />
+                            <xs:enumeration value="BB" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                      <xs:element name="datum" minOccurs="1" maxOccurs="1" type="xs:date">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Erfassungsdatum der Ergebnisse CMS</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="rs" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>RS-Erkrankung (Ralstonia solanacearum, Schleimkrankheit)</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ergebnis" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Ergebnis RS</p>
+                            <ul>
+                              <li>no = noch offen</li>
+                              <li>mE = mit Erfolg</li>
+                              <li>oE = ohne Erfolg</li>
+                            </ul>
+                          </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="no" />
+                            <xs:enumeration value="mE" />
+                            <xs:enumeration value="oE" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                      <xs:element name="grundOhneErfolg" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Grund (ohne Erfolg)</p>
+                            <ul>
+                              <li>wb = wahrscheinlich befallen</li>
+                              <li>pS = zwei positive Screenings</li>
+                              <li>kl = klonaler Zusammenhang</li>
+                              <li>BB = Befall im Betrieb</li>
+                            </ul>
+                          </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="wb" />
+                            <xs:enumeration value="pS" />
+                            <xs:enumeration value="kl" />
+                            <xs:enumeration value="BB" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                      <xs:element name="datum" minOccurs="1" maxOccurs="1" type="xs:date">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Erfassungsdatum der Ergebnisse RS</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+
+          <xs:element name="auslagerungsPruefung" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Auslagerungsprüfung</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="plombierteMengen" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Plombierte Mengen</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="einzelMenge" minOccurs="1" maxOccurs="unbounded">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Einzelmenge pro Kategorie</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="kategorie" minOccurs="1" maxOccurs="1" type="saatgutKategorie">
+                              <xs:annotation>
+                                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                                  <p>Kategorie</p>
+                                </xs:documentation>
+                              </xs:annotation>
+                            </xs:element>
+                            <xs:element name="gewicht" minOccurs="1" maxOccurs="1" type="xs:float">
+                              <xs:annotation>
+                                <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                                  <p>Gewicht in dt</p>
+                                </xs:documentation>
+                              </xs:annotation>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Ableitung Saatgut -->
+  <xs:complexType name="beschaffenheitsPruefungSaatgut">
+    <xs:complexContent>
+      <xs:extension base="beschaffenheitsPruefung">
+        <xs:sequence>
+          <xs:element name="untersuchungsNummer" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Untersuchungsnummer</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:minLength value="1" />
+                <xs:maxLength value="8" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="partie" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Partie, die zur Probe gehört</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="partieNummer" minOccurs="1" maxOccurs="1" type="xs:integer">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Laufende Nummer der Partie</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="gewicht" minOccurs="1" maxOccurs="1" type="xs:float">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Gewicht</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="siloPartien" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Partien, die gemeinsam im Silo lagern</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="partie" minOccurs="1" maxOccurs="unbounded">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Einzel-Partie</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="partieNummer" minOccurs="1" maxOccurs="1" type="xs:integer">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Laufende Nummer der Partie</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="gewicht" minOccurs="1" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Gewicht</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="probenahmeDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Datum der Probenahme</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="probenEingangsDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Eingang der Probe (Datum)</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="entscheidungsDatum" minOccurs="0" maxOccurs="1" type="xs:date">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Datum der Entscheidung</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="bescheidDatum" minOccurs="1" maxOccurs="1" type="xs:date">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Ausfertigung des Bescheides (Datum)</p>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="probenArt" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Art der Probe</p>
+                <ul>
+                  <li>A = Anerkennungsprobe</li>
+                  <li>E = Erneute Beschaffenheitsprüfung</li>
+                  <li>V = Saatgutverkehrskontrollprobe</li>
+                  <li>P = Kontrollprobe</li>
+                  <li>Z = Zulassungsprobe für Handelssaatgut</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="A" />
+                <xs:enumeration value="E" />
+                <xs:enumeration value="V" />
+                <xs:enumeration value="P" />
+                <xs:enumeration value="Z" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="probenKennzeichen" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Probenkennzeichen</p>
+                <ul>
+                  <li>R = Rohwareprobe für nicht obligatorische Beschaffenheitsprüfung (noB)</li>
+                  <li>S = Saatwareprobe für nicht obligatorische Beschaffenheitsprüfung (noB)</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="R" />
+                <xs:enumeration value="S" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="beizAuflage" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Beizbindung</p>
+                <ul>
+                  <li>true = mit Auflage</li>
+                  <li>false = ohne Auflage</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="verminderteKeimfaehigkeit" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Verminderte Keimfähigkeit</p>
+                <ul>
+                  <li>true = verminderte Keimfähigkeit</li>
+                  <li>false = kein verminderte Keimfähigkeit</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="nachReinigungParagraph12" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Nachreinigung nach §12</p>
+                <ul>
+                  <li>true = Nachreinigung</li>
+                  <li>false = keine Nachreinigung</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="abschluss" minOccurs="1" maxOccurs="1" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Abschluss aller Untersuchungen</p>
+                <ul>
+                  <li>true = abgeschlossen</li>
+                  <li>false = nicht abgeschlossen</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="behandlung" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Behandlung</p>
+                <ul>
+                  <li>0 = unbehandelt</li>
+                  <li>1 = gebeizt</li>
+                  <li>2 = pilliert</li>
+                  <li>3 = inkrustiert</li>
+                  <li>4 = Behandlung mittels Elektronenstrahl</li>
+                </ul>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:integer">
+                <xs:enumeration value="0" />
+                <xs:enumeration value="1" />
+                <xs:enumeration value="2" />
+                <xs:enumeration value="3" />
+                <xs:enumeration value="4" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="beschaffenheitsPruefungsKriterien" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                <p>Liste mit einem oder mehreren "beschaffenheitsPruefungsKriterium"-Elementen</p>
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="beschaffenheitsPruefungsKriterium" minOccurs="1" maxOccurs="unbounded">
+                  <xs:annotation>
+                    <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                      <p>Definition eines konkreten "beschaffenheitsPruefungsKriterium"-Elementes</p>
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="beschaffenheitsPruefungsKriteriumNummer" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Nummer/Schlüssel des Kriteriums</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1" />
+                            <xs:maxLength value="4" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                      <xs:element name="beschaffenheitsPruefungsKriteriumWert" minOccurs="1" maxOccurs="1" type="xs:float">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Wert des Kriteriums</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="beschaffenheitsPruefungsKriteriumText" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+                            <p>Text/Beschreibung des Kriteriums</p>
+                          </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:minLength value="1" />
+                            <xs:maxLength value="100" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!-- BESCHAFFENHEITSPRÜFUNG ENDE -->
+
+  <!-- SAATGUTKATEGORIE BEGINN -->
+  <xs:simpleType name="saatgutKategorie">
+    <xs:annotation>
+      <xs:documentation xmlns="http://www.w3.org/1999/xhtml">
+        <p>Kategorie des Saatgutes</p>
+        <ul>
+          <li>B = Basissaatgut</li>
+          <li>BE = Basispflanzgut Klasse E</li>
+          <li>BS = Basispflanzgut Klasse S</li>
+          <li>BSE = Basispflanzgut Klasse SE</li>
+          <li>M3 = Meristempflanzgut 3</li>
+          <li>V = Vorstufensaatgut / Vorstufenpflanzgut</li>
+          <li>Z1 = Zertifiziertes Saatgut / Pflanzgut 1. Generation</li>
+          <li>Z2 = Zertifiziertes Saatgut / Pflanzgut 2. Generation</li>
+          <li>Z3 = Zertifiziertes Saatgut 3. Generation</li>
+        </ul>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="B" />
+      <xs:enumeration value="BE" />
+      <xs:enumeration value="BS" />
+      <xs:enumeration value="BSE" />
+      <xs:enumeration value="M3" />
+      <xs:enumeration value="V" />
+      <xs:enumeration value="Z1" />
+      <xs:enumeration value="Z2" />
+      <xs:enumeration value="Z3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- SAATGUTKATEGORIE ENDE -->
+
+</xs:schema>
